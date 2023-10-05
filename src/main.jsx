@@ -14,6 +14,8 @@ import Jobs from './components/Jobs/Jobs';
 import Home from './components/Home/Home';
 import JobDetails from './components/Jobs/JobDetails/JobDetails';
 import AppliedJobs from './components/AppliedJobs/AppliedJobs';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
         path: "/applied/",
         element: <AppliedJobs></AppliedJobs>,
         loader: () => fetch("/jobs.json") 
+      },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
+      {
+        path: "/register",
+        element: <Register></Register>
       }
     ]
   },

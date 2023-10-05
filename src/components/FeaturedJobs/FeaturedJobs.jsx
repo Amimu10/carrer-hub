@@ -4,13 +4,24 @@ import Job from "../Job/Job";
 const FeaturedJobs = () => {
    const [jobs, setJobs] = useState([]);
    const [dataLength, setDataLength] = useState(4);
+   const [seeAllJobs, setSeeAllJobs] = useState(false);
   useEffect(()=>{
       fetch("jobs.json")
       .then(res=>res.json())
       .then(data=> setJobs(data)); 
   }, [])
 
+const handleSeeAllJobs = () =>{
+    setSeeAllJobs(!seeAllJobs);
+    if(seeAllJobs){
+        setDataLength(4);
 
+    }
+    else{
+        setDataLength(jobs.length);
+    }
+    
+}
     return (
         <div>
             <h2 className="lg:text-5xl text-3xl mb-4 text-center text-[#1A1919] font-extrabold">Featured Jobs</h2>
@@ -21,7 +32,11 @@ const FeaturedJobs = () => {
                 } 
             </div>
             <div className="text-center mb-24">
-            <button onClick={()=>setDataLength(jobs.length)} className="bg-gradient-to-r px-3 py-2.5 text-white font-extrabold text-lg from-blue-500 via-blue-600 to-purple-700 rounded-md  ">See All Jobs</button>
+            <button onClick={handleSeeAllJobs} className="bg-gradient-to-r px-3 py-2.5 text-white font-extrabold text-lg from-blue-500 via-blue-600 to-purple-700 rounded-md  ">
+             {
+                seeAllJobs? "See Less Jobs" : "See More Jobs"
+             } 
+             </button>
             </div>
         </div>
     );
