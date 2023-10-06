@@ -1,15 +1,41 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Header = () => {
-    const links = <>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/jobs">Jobs</NavLink></li>
-        <li><NavLink to="/applied">Applied Jobs</NavLink></li>
-        <li><NavLink to="/statistics">Statistics</NavLink></li>
-        <li><NavLink to="/blogs">Blogs</NavLink></li>  
-        <li><NavLink to="/login">Login</NavLink></li>  
-        <li><NavLink to="/register">Register</NavLink></li>  
+  const { user, logOut } = useContext(AuthContext);
+  // console.log(user);
+
+  const handlesignOut = () =>{
+      logOut();
+  }
+  const links = (
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/jobs">Jobs</NavLink>
+      </li>
+      <li>
+        <NavLink to="/applied">Applied Jobs</NavLink>
+      </li>
+      <li>
+        <NavLink to="/statistics">Statistics</NavLink>
+      </li>
+      <li>
+        <NavLink to="/blogs">Blogs</NavLink>
+      </li>
+      <li>
+        <NavLink to="/login">Login</NavLink>
+      </li>
+      <li>
+        <NavLink to="/register">Register</NavLink>
+      </li>
     </>
+  );
+
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -35,18 +61,24 @@ const Header = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-           {links}
+              {links}
             </ul>
           </div>
           <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-          {links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Apply Now</a>
+          {
+          user ? <button onClick={handlesignOut} className="btn btn-accent">signOut</button>
+          :
+          <Link to="/login" >
+          <button  className="btn btn-accent">signIn</button>
+          :
+
+          </Link>
+          }
         </div>
       </div>
     </div>
